@@ -9,6 +9,8 @@ class Prefecture extends Model
 {
     protected $table = 'prefectures';
 
+    protected $fillable = 'name';
+
     public static function getPrefectures()
     {
         return self::orderBy('id', 'asc')->get();
