@@ -11,10 +11,12 @@
 |
 */
 
-Route::get('/', function () {
-    return view('welcome');
-});
+
 
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+
+Route::group(['prefix' => '', 'as' => 'front.', 'namespace' => 'Frontend'], function () {
+    Route::get('/', 'FrontendController@index')->name('index');
+});

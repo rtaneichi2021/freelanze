@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
 use App\Providers\RouteServiceProvider;
-use App\User;
+use App\Models\User;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
@@ -50,9 +50,17 @@ class RegisterController extends Controller
     protected function validator(array $data)
     {
         return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
+            'name' => 'required | max:100',
+            'email' => 'required | email:rfc,dns | max:100',
+            'password' => 'required | max:50',
+            'password_confirmation' => 'required',
+            'tel' => 'required | max:15',
+            'birthday' => 'required | date',
+            'post_code' => 'max:10',
+            'prefectures_id' => 'required',
+            'city' => 'required | max:100',
+            'address' => 'required | max:100',
+            'building' => 'max:100',
         ]);
     }
 
@@ -65,9 +73,21 @@ class RegisterController extends Controller
     protected function create(array $data)
     {
         return User::create([
-            'name' => $data['name'],
+            'first_name' => $data['first_name'],
+            'last_name' => $data['last_name'],
+            'first_name_kana' => $data['first_name_kana'],
+            'last_name_kana' => $data['last_name_kana'],
             'email' => $data['email'],
             'password' => Hash::make($data['password']),
+            'tel' => $data['tel'],
+            'age' => $data['age'],
+            'sex' => $data['sex'],
+            'birthday' => $data['birthday'],
+            'post_code' => $data['post_code'],
+            'prefectures_id' => $data['prefectures_id'],
+            'city_id' => $data['city_id'],
+            'address' => $data['address'],
+            'building' => $data['building'],
         ]);
     }
 }

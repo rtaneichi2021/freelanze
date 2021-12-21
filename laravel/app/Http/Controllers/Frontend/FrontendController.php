@@ -7,5 +7,8 @@ use Illuminate\Http\Request;
 
 class FrontendController extends Controller
 {
-    //
+    public function index(Request $request)
+    {
+        return view('front.home');
+    }
 }
